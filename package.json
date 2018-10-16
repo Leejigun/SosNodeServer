@@ -1,0 +1,19 @@
+{
+  "name": "sos_node_server",
+  "version": "1.0.0",
+  "description": "SOS 누르미 날씨 API 노드 서버 구현",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "JSON": "^1.0.0",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "firebase-admin": "^6.0.0",
+    "request": "^2.88.0",
+    "rxjs": "^6.3.3"
+  }
+}
