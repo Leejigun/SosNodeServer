@@ -55,38 +55,38 @@ $.jsonDataToWeekWeather = (array) => {
 		var dateArray = dateDic[key];
 		var timeDic = {};
 		for(var i in dateArray) {
-			var element = dateArray[i];
-			if(element.fcstTime in timeDic) {
-				timeDic[element.fcstTime].push(element);
+			var dateElement = dateArray[i];
+			if(dateElement.fcstTime in timeDic) {
+				timeDic[dateElement.fcstTime].push(dateElement);
 			} else {
-				timeDic[element.fcstTime] = [ element ];
+				timeDic[dateElement.fcstTime] = [ dateElement ];
 			}
 		}
 		for(var timeKey in timeDic) {
 			var timeArray = timeDic[timeKey];
 			var item = {POP:``,PTY:``,REH:``,SKY:'',T3H:``,TMX:``,UUU:``,WSD:``,VEC:``,VVV:``,fcstDate:``,fcstTime:``};
 			for(var timeIndex in timeArray) {
-				var element = timeArray[timeIndex];
-				if(element.category == `POP`) {
-					item.POP = element.fcstValue;
-				} else if(element.category == `PTY`) {
-					item.PTY = element.fcstValue;
-				} else if(element.category == `REH`) {
-					item.REH = element.fcstValue;
-				} else if(element.category == `SKY`) {
-					item.SKY = element.fcstValue;
-				} else if(element.category == `T3H`) {
-					item.T3H = element.fcstValue;
-				} else if(element.category == `TMX`) {
-					item.TMX = element.fcstValue;
-				} else if(element.category == `UUU`) {
-					item.UUU = element.fcstValue;
-				} else if(element.category == `WSD`) {
-					item.WSD = element.fcstValue;
-				} else if(element.category == `VEC`) {
-					item.VEC = element.fcstValue;
+				var timeElement = timeArray[timeIndex];
+				if(timeElement.category == `POP`) {
+					item.POP = timeElement.fcstValue;
+				} else if(timeElement.category == `PTY`) {
+					item.PTY = timeElement.fcstValue;
+				} else if(timeElement.category == `REH`) {
+					item.REH = timeElement.fcstValue;
+				} else if(timeElement.category == `SKY`) {
+					item.SKY = timeElement.fcstValue;
+				} else if(timeElement.category == `T3H`) {
+					item.T3H = timeElement.fcstValue;
+				} else if(timeElement.category == `TMX`) {
+					item.TMX = timeElement.fcstValue;
+				} else if(timeElement.category == `UUU`) {
+					item.UUU = timeElement.fcstValue;
+				} else if(timeElement.category == `WSD`) {
+					item.WSD = timeElement.fcstValue;
+				} else if(timeElement.category == `VEC`) {
+					item.VEC = timeElement.fcstValue;
 				} else {
-					item.VVV = element.fcstValue;
+					item.VVV = timeElement.fcstValue;
 				}
 			}
 			item.fcstDate = timeArray[0].fcstDate;

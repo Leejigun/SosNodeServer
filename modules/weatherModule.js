@@ -23,8 +23,7 @@ module.exports.getRealTimeWeather = function (req, res) {
 	.pipe(flatMap(param => {return dbManager.getRealTimeWeather(param);}))
 	.pipe(flatMap(data => {
 		/// 데이터가 없는 경우 기상청 서버에 데이터를 던지고 db에 저장 후 내려준다.
-		console.log(data);
-		if(!data) { return httpProvider.getRealtimeWeatherFromServer(param); } 
+		if(typeof data != null) { return httpProvider.getRealtimeWeatherFromServer(param); } 
 		else { return data; }
 	}))
 	.subscribe(
@@ -57,7 +56,7 @@ module.exports.getWeekWeather = function (req, res) {
 	.pipe(flatMap(param => {return dbManager.getWeekWeather(param);}))
 	.pipe(flatMap(data => {
 		/// 데이터가 없는 경우 기상청 서버에 데이터를 던지고 db에 저장 후 내려준다.
-		if(!data) { return httpProvider.getWeekWeatherFromServer(param); } 
+		if(typeof data != null) { return httpProvider.getWeekWeatherFromServer(param); } 
 		else { return data; }
 	}))
 	.subscribe(

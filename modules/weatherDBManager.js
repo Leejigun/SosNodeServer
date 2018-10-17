@@ -17,24 +17,18 @@ const ref = db.ref(`weather`);
 module.exports.getRealTimeWeather = function (param) {
 	/*값을 꺼내오기 위해 value로 설정*/
 	return Observable.create(subscriber => {
-		var realTimeRef = ref.child("realTime").child(param.base_date).child(param.base_time);
+		var realTimeRef = ref.child("realTime").child(param.base_date).child(param.base_time).child(`${param.nx}:${param.ny}`);
 		realTimeRef.once("value", (data) => {
-			var array = data.val();
-			var returnData = null;
-			for(var index in array) {
-				var element = array[index];
-				if(element.nx == param.nx && element.ny == param.ny) {
-					returnData = returnData;
-					break;
-				}
-			}
-			// 자꾸 여기서 2번 호출하려는 버그 있음.
-			subscriber.next(returnData);
+			var dic = data.val();
+			subscriber.next(dic);
+		}, (err) => {
+			console.log(err);
+			subscriber.error(err);
 		});
 	});
 };
 module.exports.setRealTimeWeather = function (data) {
-	var realTimeRef = ref.child("realTime").child(`${data.baseDate}`).child(`${data.baseTime}`).push();
+	var realTimeRef = ref.child("realTime").child(`${data.baseDate}`).child(`${data.baseTime}`).child(`${data.nx}:${data.ny}`);
 	return Observable.create(subscriber => {
 		realTimeRef.set	(data,function(error) {
 			if(error) {
@@ -55,28 +49,19 @@ module.exports.getAirCondition = function (req, res) {
 };
 /*주간 날씨 정보 조회*/
 module.exports.getWeekWeather = function (param) {
-	var weekRef = ref.child("weekWeather").child(param.base_date).child(param.base_time);
+	var weekRef = ref.child("weekWeather").child(param.base_date).child(param.base_time).child(`${param.nx}:${param.ny}`);
 	/*값을 꺼내오기 위해 value로 설정*/
 	return Observable.create(subscriber => {
 		weekRef.once("value", (data) => {
-			var array = data.val();
-			var returnData = null;
-			for(var index in array) {
-				var element = array[index];
-				if(element.nx == param.nx && element.ny == param.ny) {
-					returnData = returnData;
-					break;
-				}
-			}
-			// 자꾸 여기서 2번 호출하려는 버그 있음.
-			subscriber.next(returnData);
+			var dic = data.val();
+			subscriber.next(dic);
 		});
 	});
 };
 module.exports.setWeekWeather = function (data) {
-	var weekRef = ref.child("weekWeather").child(`${data.baseDate}`).child(`${data.baseTime}`).push();
+	var weekRef = ref.child("weekWeather").child(`${data.baseDate}`).child(`${data.baseTime}`).child(`${data.nx}:${data.ny}`);
 	return Observable.create(subscriber => {
-		weekRef.set	(data,function(error) {
+		weekRef.set(data,function(error) {
 			if(error) {
 				subscriber.error(error);
 			} else {
