@@ -70,3 +70,12 @@ module.exports.setWeekWeather = function (data) {
 		});
 	});
 };
+
+module.exports.saveLog = function(address, key, data) {
+	var logRef = db.ref(`log`).child(address).child(key);
+	logRef.set(data,function(error){
+		if(error) {
+			console.log(error);
+		}
+	});
+}
