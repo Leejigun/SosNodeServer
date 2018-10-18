@@ -5,11 +5,14 @@
 
 const request = require(`request`);
 const scheduler = require(`node-schedule`);
-const seoul = require(`moment-timezone`).tz(`Asia/Seoul`);
+const moment = require(`moment-timezone`)
 const db = require(`./weatherDBManager`);
 const { Observable } = require('rxjs');
 const { map, flatMap, catchError } = require('rxjs/operators');
 
+function getNow() {
+        return moment.tz(`Asia/Seoul`);
+}
 module.exports.runAPIRecorder = () => {
 
         const rule = new scheduler.RecurrenceRule();
@@ -22,7 +25,7 @@ module.exports.runAPIRecorder = () => {
         this.callWeek();
         // 매 시각 API 호출
         const k = scheduler.scheduleJob(rule, () => {
-                var now = seoul.format("YYYYMMDD:HHmm:ss");
+                var now = getNow().format("YYYYMMDD:HHmm:ss");
                 console.log(`scheduleJob start: ${now}`);
                 this.callRealTime();
                 this.callUV();
@@ -39,20 +42,20 @@ const headers = {
 module.exports.callRealTime = () => {
         var param = {nx:61,ny:126,base_date:``,base_time:``};
         
-        var currentTime = seoul.format("HH");
+        var currentTime = getNow().format("HH");
         if ((currentTime *=1) < 10) {
                 currentTime = `0${currentTime}00`;
         } else {
                 currentTime = `${currentTime}00`;
         }
-        var today = seoul.format("YYYYMMDD:HHmm");
+        var today = getNow().format("YYYYMMDD:HHmm");
 
         if((currentTime *= 1) < 0200) {
                 // 어제 2300을 찔러야한다.
-                param.base_date = seoul.add(-1, 'days').format(`YYYYMMDD`);
+                param.base_date = getNow().add(-1, 'days').format(`YYYYMMDD`);
                 param.base_time = `2300`;
         } else {
-                param.base_date = seoul.format(`YYYYMMDD`);
+                param.base_date = getNow().format(`YYYYMMDD`);
                 param.base_time = currentTime;
         }
 
@@ -76,7 +79,7 @@ module.exports.callRealTime = () => {
 module.exports.callUV = () => {
         var param = {areaNo:`1100000000`};
         
-        var today = seoul.format("YYYYMMDD:HHmm");
+        var today = getNow().format("YYYYMMDD:HHmm");
 
         const options = {
                 url: `http://intra.openit.co.kr:12080/weather/ultraRays.json`,
@@ -97,7 +100,7 @@ module.exports.callUV = () => {
 module.exports.callAir = () => {
         var param = {sidoName:`1100000000`};
         
-        var today = seoul.format("YYYYMMDD:HHmm");
+        var today = getNow().format("YYYYMMDD:HHmm");
 
         const options = {
                 url: `http://intra.openit.co.kr:12080/weather/airPol.json`,
@@ -118,14 +121,14 @@ module.exports.callAir = () => {
 module.exports.callWeek = () => {
         var param = {nx:61,ny:126,base_date:``,base_time:``};
         
-        var currentTime = seoul.format("HH00");
-        var today = seoul.format("YYYYMMDD:HHmm");
+        var currentTime = getNow().format("HH00");
+        var today = getNow().format("YYYYMMDD:HHmm");
 
         
 
         if((currentTime *= 1) < 0200) {
                 // 어제 2300을 찔러야한다.
-                param.base_date = seoul.add(-1, 'days').format(`YYYYMMDD`);
+                param.base_date = getNow().add(-1, 'days').format(`YYYYMMDD`);
                 param.base_time = `2300`;
         } else {
                 var time = (currentTime *= 1);
@@ -146,7 +149,7 @@ module.exports.callWeek = () => {
                 } else {
                         param.base_time = `2300`;
                 }
-                param.base_date = seoul.format(`YYYYMMDD`);
+                param.base_date = getNow().format(`YYYYMMDD`);
         }
 
         const options = {
