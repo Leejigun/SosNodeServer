@@ -16,6 +16,10 @@ module.exports.runAPIRecorder = () => {
         rule.minute = 0;
         
         console.log(`runAPIRecorder start `);
+        this.callRealTime();
+        this.callUV();
+        this.callAir();
+        this.callWeek();
         // 매 시각 API 호출
         const k = scheduler.scheduleJob(rule, () => {
                 this.callRealTime();
@@ -33,7 +37,12 @@ const headers = {
 module.exports.callRealTime = () => {
         var param = {nx:61,ny:126,base_date:``,base_time:``};
         
-        var currentTime = seoul.format("HH00");
+        var currentTime = seoul.format("HH");
+        if ((currentTime *=1) < 10) {
+                currentTime = `0${currentTime}00`;
+        } else {
+                currentTime = `${currentTime}00`;
+        }
         var today = seoul.format("YYYYMMDD:HHmm");
 
         if((currentTime *= 1) < 0200) {
