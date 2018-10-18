@@ -18,7 +18,7 @@ module.exports.runAPIRecorder = () => {
         const rule = new scheduler.RecurrenceRule();
         rule.minute = [0, 30];
         
-        console.log(`runAPIRecorder start `);
+        console.log(`runAPIRecorder start ${getNow().format("YYYYMMDD:HHmm:ss")}`);
         this.callRealTime();
         this.callUV();
         this.callAir();
