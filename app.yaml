@@ -1,2 +1,3 @@
-runtime: nodejs
+runtime: nodejs10
+env: flex
 vm: true
