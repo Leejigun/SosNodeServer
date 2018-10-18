@@ -155,6 +155,7 @@ module.exports.callWeek = () => {
                 headers: headers,
                 qs: param
         };
+        console.log(param);
         //request Server
         requestAPI(options)
         //save DB
