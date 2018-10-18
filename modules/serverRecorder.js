@@ -14,7 +14,8 @@ module.exports.runAPIRecorder = () => {
 
         const rule = new scheduler.RecurrenceRule();
         rule.minute = 0;
-
+        
+        console.log(`runAPIRecorder start `);
         // 매 시각 API 호출
         const k = scheduler.scheduleJob(rule, () => {
                 this.callRealTime();

@@ -1,14 +1,26 @@
 {
   "name": "sos_node_server",
   "version": "1.0.0",
+  "private": true,
   "description": "SOS 누르미 날씨 API 노드 서버 구현",
   "main": "index.js",
   "scripts": {
+    "start": "node ./index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "engines":{
+    "node":"10.x.x"  
+  },
+  "author": "Jigun Lee",
   "license": "ISC",
   "dependencies": {
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "ejs": "~2.5.7",
+    "http-errors": "~1.6.2",
+    "morgan": "~1.9.0",
+    "stylus": "0.54.5",
+
     "JSON": "^1.0.0",
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
