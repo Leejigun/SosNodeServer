@@ -22,7 +22,7 @@ module.exports.runAPIRecorder = () => {
         this.callWeek();
         // 매 시각 API 호출
         const k = scheduler.scheduleJob(rule, () => {
-                var now = seoul.format("YYYYMMDD:HHmm");
+                var now = seoul.format("YYYYMMDD:HHmm:ss");
                 console.log(`scheduleJob start: ${now}`);
                 this.callRealTime();
                 this.callUV();
