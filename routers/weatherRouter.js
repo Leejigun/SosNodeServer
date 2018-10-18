@@ -5,6 +5,7 @@ module.exports = (app) => {
 
 	//TODO: test Code
 	router.get(`/`, (req, res) => {
+		console.log(`hello`);
 		res.send(`hello`);
 	});
 	/*실시간 날씨 정보*/

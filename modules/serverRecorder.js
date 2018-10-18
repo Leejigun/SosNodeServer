@@ -13,7 +13,7 @@ const { map, flatMap, catchError } = require('rxjs/operators');
 module.exports.runAPIRecorder = () => {
 
         const rule = new scheduler.RecurrenceRule();
-        rule.minute = 0;
+        rule.minute = [0, 30];
         
         console.log(`runAPIRecorder start `);
         this.callRealTime();
@@ -22,6 +22,8 @@ module.exports.runAPIRecorder = () => {
         this.callWeek();
         // 매 시각 API 호출
         const k = scheduler.scheduleJob(rule, () => {
+                var now = seoul.format("YYYYMMDD:HHmm");
+                console.log(`scheduleJob start: ${now}`);
                 this.callRealTime();
                 this.callUV();
                 this.callAir();
