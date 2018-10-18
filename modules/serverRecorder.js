@@ -5,13 +5,13 @@
 
 const request = require(`request`);
 const scheduler = require(`node-schedule`);
-const moment = require(`moment-timezone`)
+const moment = require(`moment-timezone`);
 const db = require(`./weatherDBManager`);
 const { Observable } = require('rxjs');
 const { map, flatMap, catchError } = require('rxjs/operators');
 
 function getNow() {
-        return moment.tz(`Asia/Seoul`);
+        return moment().tz(`Asia/Seoul`);
 }
 module.exports.runAPIRecorder = () => {
 
@@ -56,7 +56,7 @@ module.exports.callRealTime = () => {
                 param.base_time = `2300`;
         } else {
                 param.base_date = getNow().format(`YYYYMMDD`);
-                param.base_time = currentTime;
+                param.base_time = `${currentTime}`;
         }
 
         const options = {
