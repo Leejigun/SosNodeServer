@@ -9,6 +9,7 @@ const moment = require(`moment-timezone`);
 const db = require(`./weatherDBManager`);
 const { Observable } = require('rxjs');
 const { map, flatMap, catchError } = require('rxjs/operators');
+
 /**
  * 호출할 때 마다 최신 시간을 기록
  */
@@ -45,10 +46,12 @@ module.exports.callRealTime = () => {
         var param = {nx:61,ny:126,base_date:``,base_time:""};
         
         var currentTime = getNow().format("HH");
-        if ((currentTime *1) < 10) {
-                currentTime = `${currentTime}00`;
+        var hour = (currentTime*=1) - 1;
+
+        if (hour < 10) {
+                currentTime = `0${hour}00`;
         } else {
-                currentTime = `${currentTime}00`;
+                currentTime = `${hour}00`;
         }
         var today = getNow().format("YYYYMMDD:HHmm");
 
