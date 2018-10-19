@@ -13,7 +13,7 @@ const { map, flatMap, catchError } = require('rxjs/operators');
  * 호출할 때 마다 최신 시간을 기록
  */
 function getNow() {
-        return moment().tz(`Asia/Seoul`);
+        return moment().tz(`America/Danmarkshavn`);
 }
 module.exports.runAPIRecorder = () => {
 
@@ -42,23 +42,23 @@ const headers = {
 };
 
 module.exports.callRealTime = () => {
-        var param = {nx:61,ny:126,base_date:``,base_time:``};
+        var param = {nx:61,ny:126,base_date:``,base_time:""};
         
         var currentTime = getNow().format("HH");
-        if ((currentTime *=1) < 10) {
-                currentTime = `0${currentTime.toString()}00`;
+        if ((currentTime *1) < 10) {
+                currentTime = `${currentTime}00`;
         } else {
                 currentTime = `${currentTime}00`;
         }
         var today = getNow().format("YYYYMMDD:HHmm");
 
-        if((currentTime *= 1) < 0200) {
+        if((currentTime * 1) < 0200) {
                 // 어제 2300을 찔러야한다.
                 param.base_date = getNow().add(-1, 'days').format(`YYYYMMDD`);
                 param.base_time = `2300`;
         } else {
                 param.base_date = getNow().format(`YYYYMMDD`);
-                param.base_time = currentTime.toString();
+                param.base_time = currentTime;
         }
 
         const options = {
@@ -128,7 +128,7 @@ module.exports.callWeek = () => {
 
         
 
-        if((currentTime *= 1) < 0200) {
+        if((currentTime *1) < 0200) {
                 // 어제 2300을 찔러야한다.
                 param.base_date = getNow().add(-1, 'days').format(`YYYYMMDD`);
                 param.base_time = `2300`;
