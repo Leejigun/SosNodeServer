@@ -13,7 +13,7 @@ const { map, flatMap, catchError } = require('rxjs/operators');
  * 호출할 때 마다 최신 시간을 기록
  */
 function getNow() {
-        return moment().tz(`America/Danmarkshavn`);
+        return moment().tz(`Asia/Seoul`);
 }
 module.exports.runAPIRecorder = () => {
 
