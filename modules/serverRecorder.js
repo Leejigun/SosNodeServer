@@ -19,7 +19,7 @@ function getNow() {
 module.exports.runAPIRecorder = () => {
 
         const rule = new scheduler.RecurrenceRule();
-        rule.minute = [0, 30];
+        rule.minute = [10, 40];
         
         console.log(`runAPIRecorder start ${getNow().format("YYYYMMDD:HHmm:ss")}`);
         this.callRealTime();
