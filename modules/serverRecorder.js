@@ -9,7 +9,9 @@ const moment = require(`moment-timezone`);
 const db = require(`./weatherDBManager`);
 const { Observable } = require('rxjs');
 const { map, flatMap, catchError } = require('rxjs/operators');
-
+/**
+ * 호출할 때 마다 최신 시간을 기록
+ */
 function getNow() {
         return moment().tz(`Asia/Seoul`);
 }
@@ -44,7 +46,7 @@ module.exports.callRealTime = () => {
         
         var currentTime = getNow().format("HH");
         if ((currentTime *=1) < 10) {
-                currentTime = `0${currentTime}00`;
+                currentTime = `0${currentTime.toString()}00`;
         } else {
                 currentTime = `${currentTime}00`;
         }
@@ -56,7 +58,7 @@ module.exports.callRealTime = () => {
                 param.base_time = `2300`;
         } else {
                 param.base_date = getNow().format(`YYYYMMDD`);
-                param.base_time = `${currentTime}`;
+                param.base_time = currentTime.toString();
         }
 
         const options = {

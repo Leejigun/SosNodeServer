@@ -38,6 +38,8 @@ app.use(function(err, req, res, next) {
         res.render('error');
 });
 
+var num = 300;
+console.log(num.toString());
 module.exports = app;
 
 /*
