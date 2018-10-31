@@ -86,7 +86,7 @@ function onListening() {
 /**
  * start openit server logger
  */
-  apiRecoder.runAPIRecorder();
+  // apiRecoder.runAPIRecorder();
 
   debug('Listening on ' + bind);
 }
